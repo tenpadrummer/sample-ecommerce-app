@@ -1,0 +1,21 @@
+default: &default
+  adapter: "postgresql"
+  encoding: "unicode"
+  username: "<%= ENV.fetch("POSTGRES_USER") { "hello" } %>"
+  password: "<%= ENV.fetch("POSTGRES_PASSWORD") { "password" } %>"
+  host: "<%= ENV.fetch("POSTGRES_HOST") { "postgres" } %>"
+  port: "<%= ENV.fetch("POSTGRES_PORT") { 5432 } %>"
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: "<%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>"
+
+development:
+  <<: *default
+  database: "sample_ecommerce_app_development"
+
+test:
+  <<: *default
+  database: "sample_ecommerce_app_test"
+
+production:
+  <<: *default
+  database: "sample_ecommerce_app_production"
