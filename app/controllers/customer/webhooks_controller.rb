@@ -63,10 +63,11 @@ class Customer::WebhooksController < ApplicationController
     product = Stripe::Product.retrieve(line_item.price.product)
     purchased_product = Product.find(product.metadata.product_id)
     raise ActiveRecord::RecordNotFound if purchased_product.nil?
+
     order.order_details.create!({
-                                                 product_id: purchased_product.id,
-                                                 price: line_item.price.unit_amount,
-                                                 quantity: line_item.quantity
-                                               })
+                                  product_id: purchased_product.id,
+                                  price: line_item.price.unit_amount,
+                                  quantity: line_item.quantity
+                                })
   end
 end
